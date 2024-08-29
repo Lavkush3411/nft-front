@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "./Buttons";
+import TransferWalletOptions from "./TransferWalletOptions";
 
 function TransferToken() {
   return (
@@ -15,15 +16,7 @@ function TransferToken() {
           id="fromWallet"
           className="mt-2 w-full p-2 border border-gray-600 rounded text-gray-200 bg-gray-700 hover:bg-gray-600"
         >
-          <option className="text-gray-900" value="wallet1">
-            Wallet 1
-          </option>
-          <option className="text-gray-900" value="wallet2">
-            Wallet 2
-          </option>
-          <option className="text-gray-900" value="wallet3">
-            Wallet 3
-          </option>
+          <TransferWalletOptions />
         </select>
       </div>
       <div className="mt-4 w-full">

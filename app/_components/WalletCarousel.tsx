@@ -2,11 +2,26 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { useSelector } from "react-redux";
+import { RootState } from "../_redux/store";
+import Wallet from "./Wallet";
 
-function WalletCarousel({ children }: { children: React.ReactNode }) {
-  const walletArray = React.Children.toArray(children);
+function WalletCarousel() {
+  // const walletArray = React.Children.toArray(children);
   const [currentIndex, setCurrentIndex] = useState(0);
-
+  const walletArray = useSelector((state: RootState) => state.wallets);
+  if (walletArray.length <= 0)
+    return (
+      <div className="flex justify-center">
+        <Wallet
+          walletNumber={0}
+          publicKey={
+            "Dummy Wallet Click on Create Solana Wallet to genrate new Wallet"
+          }
+          privateKey={""}
+        />
+      </div>
+    );
   const handlePrev = () => {
     if (currentIndex > 0) {
       setCurrentIndex((prevIndex) => prevIndex - 1);
@@ -30,7 +45,7 @@ function WalletCarousel({ children }: { children: React.ReactNode }) {
       >
         &lt;
       </button>
-      <motion.div className="flex overflow-hidden w-3/4 relative">
+      <motion.div className="flex overflow-hidden justify-center w-3/4 relative">
         <motion.div
           className="flex transition-transform duration-300 "
           style={{
@@ -41,18 +56,24 @@ function WalletCarousel({ children }: { children: React.ReactNode }) {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
-          {walletArray.map((child, index) => (
-            <motion.div
-              key={index}
-              className={`flex-shrink-0 w-80 mx-2 transition-transform duration-300 ${
-                index === currentIndex
-                  ? " shadow-2xl bg-white rounded-xl"
-                  : "scale-90 opacity-50 rounded-xl"
-              }`}
-            >
-              {child}
-            </motion.div>
-          ))}
+          {walletArray.length > 0 &&
+            walletArray.map((wallet, index) => (
+              <motion.div
+                key={index}
+                className={`flex-shrink-0 w-80 mx-2 transition-transform duration-300 ${
+                  index === currentIndex
+                    ? " shadow-2xl bg-white rounded-xl"
+                    : "scale-90 opacity-50 rounded-xl"
+                }`}
+              >
+                <Wallet
+                  key={index}
+                  walletNumber={index + 1}
+                  publicKey={wallet.publicKey}
+                  privateKey={wallet.privateKey}
+                />
+              </motion.div>
+            ))}
         </motion.div>
       </motion.div>
       <button
@@ -67,14 +88,15 @@ function WalletCarousel({ children }: { children: React.ReactNode }) {
         &gt;
       </button>
       <div className="absolute bottom-2 flex space-x-2">
-        {walletArray.map((_, index) => (
-          <div
-            key={index}
-            className={`h-2 w-2 rounded-full ${
-              index === currentIndex ? "bg-gray-700" : "bg-gray-400"
-            }`}
-          />
-        ))}
+        {walletArray.length > 0 &&
+          walletArray.map((_, index) => (
+            <div
+              key={index}
+              className={`h-2 w-2 rounded-full ${
+                index === currentIndex ? "bg-gray-700" : "bg-gray-400"
+              }`}
+            />
+          ))}
       </div>
     </div>
   );

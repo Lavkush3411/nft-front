@@ -11,15 +11,7 @@ export default function Home() {
   return (
     <main className="container p-20 gap-20 scrollbar-hide">
       <WalletConnectorPopup />
-      <WalletCarousel>
-        <Wallet walletNumber={1} />
-        <Wallet walletNumber={2} />
-        <Wallet walletNumber={3} />
-        <Wallet walletNumber={4} />
-        <Wallet walletNumber={5} />
-        <Wallet walletNumber={6} />
-      </WalletCarousel>
-      <AddWallet />
+      <WalletCarousel />
       <div className=" flex container gap-20 py-20">
         <TransferToken />
         <div className="w-full flex flex-col gap-4">

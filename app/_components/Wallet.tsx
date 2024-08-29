@@ -2,7 +2,15 @@
 import React from "react";
 import Button from "./Buttons";
 
-function Wallet({ walletNumber }: { walletNumber: number }) {
+function Wallet({
+  walletNumber,
+  publicKey,
+  privateKey,
+}: {
+  walletNumber: number;
+  publicKey: string;
+  privateKey: string;
+}) {
   const [isKeyVisible, setIsKeyVisible] = React.useState(false);
   const toggleKeyVisibility = () => {
     setIsKeyVisible(!isKeyVisible);
@@ -13,15 +21,15 @@ function Wallet({ walletNumber }: { walletNumber: number }) {
         <h2 className="text-lg font-bold text-white text-center">
           Wallet Number: {walletNumber}
         </h2>
-        <div className="mt-2 text-left w-full">
-          <p className="text-gray-400">Public Key:</p>
-          <p className="font-mono text-gray-200">YourPublicKeyHere</p>
+        <div className="mt-2 text-wrap break-words text-left w-full">
+          <p className="text-gray-400 ">Public Key:</p>
+          <p className="font-mono  text-gray-200">{publicKey}</p>
         </div>
         <div className="mt-2 text-left w-full">
           <p className="text-gray-400">Private Key:</p>
           <div className="flex items-center">
-            <p className="font-mono text-gray-200">
-              {isKeyVisible ? "YourPrivateKeyHere" : "*********"}
+            <p className="font-mono break-all text-gray-200">
+              {isKeyVisible ? privateKey : "***********************"}
             </p>
             <button
               onClick={toggleKeyVisibility}
