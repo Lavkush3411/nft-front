@@ -49,8 +49,8 @@ function WalletCarousel() {
         <motion.div
           className="flex transition-transform duration-300 "
           style={{
-            width: `${walletArray.length * 320}px`,
-            transform: `translateX(-${currentIndex * 320}px)`,
+            width: `${walletArray.length}px`,
+            transform: `translateX(-${currentIndex * 350}px)`,
           }}
           initial={{ opacity: 0.5 }}
           animate={{ opacity: 1 }}
