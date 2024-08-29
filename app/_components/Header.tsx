@@ -17,7 +17,7 @@ function Header() {
         </Link>
         <div className="space-x-4">
           <Link href="/create-wallet">
-            <HeaderButton>Create Wallet</HeaderButton>
+            <HeaderButton>Create Solana Wallet</HeaderButton>
           </Link>
           <HeaderButton onClick={() => dispatch(openWalletConnector())}>
             Connect Wallet

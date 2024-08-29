@@ -1,3 +1,4 @@
+import AddWallet from "./_components/AddWallet";
 import Box from "./_components/Box";
 import Button from "./_components/Buttons";
 import SearchBar from "./_components/SearchBar";
@@ -18,6 +19,7 @@ export default function Home() {
         <Wallet walletNumber={5} />
         <Wallet walletNumber={6} />
       </WalletCarousel>
+      <AddWallet />
       <div className=" flex container gap-20 py-20">
         <TransferToken />
         <div className="w-full flex flex-col gap-4">
