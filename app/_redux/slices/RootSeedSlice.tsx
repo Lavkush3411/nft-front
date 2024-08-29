@@ -10,7 +10,7 @@ const rootSeedSlice = createSlice({
   reducers: {
     setRootSeed: (state, action) => {
       const rootSeed = getRootSeedFromMnemonic(action.payload);
-      state.rootSeed = rootSeed.toString("hex");
+      state.rootSeed = rootSeed;
     },
   },
 });
