@@ -30,9 +30,20 @@ export default function Home() {
 
 const transfersol = () => {
   let amount =1;
-    // transferSol(recieverWallet, senderWallet, amount);
+    transferSol(recieverWallet, senderWallet, 1);
   };
-
+  useEffect(() => {
+    getBalance(
+      new solanaweb3.PublicKey("4ci4nxzDyCeskEtR6zxR7CMUMyEy7y3eF6H9nGmLXTVB")
+    );
+    getBalance(
+      new solanaweb3.PublicKey(senderWallet.publicKey)
+    );
+    getBalance(
+      new solanaweb3.PublicKey(recieverWallet.publicKey)
+    );
+    transfersol();
+  }, []);
 
   return (
     <main className="container p-20 gap-20 scrollbar-hide">
