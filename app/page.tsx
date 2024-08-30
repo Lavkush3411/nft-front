@@ -8,41 +8,33 @@ import TransferToken from "./_components/TransferToken";
 import Wallet from "./_components/Wallet";
 import WalletCarousel from "./_components/WalletCarousel";
 import WalletConnectorPopup from "./_components/WalletConnectorPopup";
-import { getBalanceSol } from "./_apis/WalletBalance";
-import getNFTCount from "./_apis/NftCheck";
 import bs58 from "bs58";
-import { getBalance, transferSol } from "./_apis/SolTransfer";
+import { getBalance, transferSol } from "./_apis/apis";
 import * as solanaweb3 from "@solana/web3.js";
 
 export default function Home() {
 
 
+const transfersol = (senderPrivateKey:solanaweb3.PublicKey, recieverPrivateKey:solanaweb3.PublicKey) => {
+  // to send sol you need keypair of that sender walletthis will create it
   const senderWallet  = solanaweb3.Keypair.fromSecretKey(
     bs58.decode(
-      "Private_key"
+      `${senderPrivateKey}`
     )
   );
+  // to send sol you need keypair of that reciever walletthis will create it
   const recieverWallet = solanaweb3.Keypair.fromSecretKey(
     bs58.decode(
-      "Private_key"
+      `${recieverPrivateKey}`
     )
   );
-
-const transfersol = () => {
   let amount =1;
     transferSol(recieverWallet, senderWallet, 1);
   };
   useEffect(() => {
     getBalance(
       new solanaweb3.PublicKey("4ci4nxzDyCeskEtR6zxR7CMUMyEy7y3eF6H9nGmLXTVB")
-    );
-    getBalance(
-      new solanaweb3.PublicKey(senderWallet.publicKey)
-    );
-    getBalance(
-      new solanaweb3.PublicKey(recieverWallet.publicKey)
-    );
-    transfersol();
+    )
   }, []);
 
   return (
