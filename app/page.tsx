@@ -46,7 +46,7 @@ const transfersol = () => {
         <Wallet walletNumber={6} />
       </WalletCarousel>
       <AddWallet />
-
+      <WalletCarousel />
       <div className=" flex container gap-20 py-20">
         <TransferToken />
         <div className="w-full flex flex-col gap-4">
