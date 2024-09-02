@@ -25,7 +25,7 @@ function WalletCarousel() {
 
   return (
     <div>
-      <div className="flex justify-center items-center relative w-full">
+      <div className="flex justify-center my-6 items-center relative w-full">
         <button
           onClick={handlePrev}
           disabled={currentIndex === 0}
@@ -69,14 +69,8 @@ function WalletCarousel() {
                 </motion.div>
               ))
             ) : (
-              <div className="flex justify-center items-center w-full">
-                <Wallet
-                  walletNumber={0}
-                  publicKey={
-                    "Click on Create Solana Wallet to genrate new Wallet"
-                  }
-                  privateKey={""}
-                />
+              <div className="flex justify-center mb-24 items-center w-full">
+                <Wallet walletNumber={0} publicKey={""} privateKey={""} />
               </div>
             )}
           </motion.div>

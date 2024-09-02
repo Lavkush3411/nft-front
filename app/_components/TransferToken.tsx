@@ -20,6 +20,18 @@ function TransferToken() {
         </select>
       </div>
       <div className="mt-4 w-full">
+        <label className="text-gray-400 font-semibold" htmlFor="amount">
+          Enter Amount:
+        </label>
+        <input
+          type="number"
+          id="amount"
+          placeholder="Enter amount"
+          className="mt-2 w-full p-2 border border-gray-600 rounded text-gray-200 bg-gray-700"
+          style={{ appearance: "none", MozAppearance: "textfield" }} // Remove default up and down arrow keys
+        />
+      </div>
+      <div className="mt-4 w-full">
         <label className="text-gray-400 font-semibold" htmlFor="toAddress">
           Enter Wallet Address:
         </label>

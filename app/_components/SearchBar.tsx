@@ -15,6 +15,7 @@ function SearchBar({
       <div className="relative">
         <input
           type="text"
+          pattern="[1-9A-HJ-NP-Za-km-z]{32,44}"
           placeholder={placeholder}
           value={search}
           onChange={(e) => setSearch(e.target.value)}

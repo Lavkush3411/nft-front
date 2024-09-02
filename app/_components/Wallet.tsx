@@ -1,6 +1,8 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "./Buttons";
+import { getBalance } from "../_apis/AllApis";
+import SmallLoader from "./SmallLoader";
 
 function Wallet({
   walletNumber,
@@ -12,24 +14,44 @@ function Wallet({
   privateKey: string;
 }) {
   const [isKeyVisible, setIsKeyVisible] = React.useState(false);
+  const [balance, setBalance] = React.useState(0);
+  const [isLoading, setIsLoading] = React.useState(false);
   const toggleKeyVisibility = () => {
     setIsKeyVisible(!isKeyVisible);
   };
+
+  useEffect(() => {
+    if (publicKey) {
+      setIsLoading(true);
+      getBalance(publicKey).then((balance) => {
+        console.log(balance);
+        setBalance(balance);
+        setIsLoading(false);
+      });
+    }
+  }, [publicKey]);
+
   return (
     <div>
       <div className="flex flex-col width-350 items-center p-6 border border-gray-700 rounded-lg shadow-md bg-gray-800 w-80 transition duration-300 ease-in-out hover:shadow-lg hover:border-gray-600 hover:overflow-hidden">
-        <h2 className="text-lg font-bold text-white text-center my-4">
+        <h2 className="text-lg font-bold text-white text-center my-2">
           {walletNumber === 0 ? "Dummy Wallet" : `Wallet ${walletNumber}`}
         </h2>
         <div className="mt-2 text-wrap break-words text-left w-full">
           <p className="text-gray-400 ">Public Key:</p>
-          <p className="font-mono  text-gray-200">{publicKey}</p>
+          <p className="font-mono  text-gray-200">
+            {publicKey
+              ? publicKey
+              : "Click on Create Solana Wallet to genrate new Wallet"}
+          </p>
         </div>
         <div className="mt-2 text-left w-full">
           <p className="text-gray-400">Private Key:</p>
           <div className="flex items-center">
             <p className="font-mono break-all text-gray-200">
-              {isKeyVisible ? privateKey : "***********************"}
+              {isKeyVisible
+                ? privateKey
+                : "********************************************************************************************"}
             </p>
             <button
               onClick={toggleKeyVisibility}
@@ -77,12 +99,23 @@ function Wallet({
           </div>
         </div>
 
-        <div className="my-2 text-left w-full">
+        <div className=" text-left w-full">
           <p className="text-gray-400">Current Balance:</p>
-          <p className="font-mono text-gray-200">0.00 SOL</p>
+          <p className="font-mono text-gray-200">
+            {isLoading ? <SmallLoader /> : balance} SOL
+          </p>
         </div>
-        <div className="my-8">
-          <Button>Refresh Balance</Button>
+        <div className="my-6">
+          <Button
+            onClick={async () => {
+              setIsLoading(true);
+              const balance = await getBalance(publicKey);
+              setBalance(balance);
+              setIsLoading(false);
+            }}
+          >
+            Refresh Balance
+          </Button>
         </div>
       </div>
     </div>

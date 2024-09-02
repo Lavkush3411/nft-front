@@ -10,10 +10,15 @@ const connection = new solanaweb3.Connection(
 
 // Function to get balance by passing the public key
 export const getBalance = async (publicKey: string) => {
-  let balance = await connection.getBalance(
-    new solanaweb3.PublicKey(publicKey)
-  );
-  return balance / solanaweb3.LAMPORTS_PER_SOL;
+  try {
+    let balance = await connection.getBalance(
+      new solanaweb3.PublicKey(publicKey)
+    );
+    console.log(balance);
+    return balance / solanaweb3.LAMPORTS_PER_SOL;
+  } catch (err) {
+    return 0;
+  }
 };
 
 export const getExchangeRates = async () => {
@@ -25,6 +30,7 @@ export const getExchangeRates = async () => {
       "https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=inr"
     ).then((res) => res.json()),
   ]);
+  console.log(usd, inr);
   return [usd.solana.usd, inr.solana.inr];
 };
 
