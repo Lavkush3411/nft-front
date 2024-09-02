@@ -1,13 +1,17 @@
 import React, { useState } from "react";
-import { getBalance, getExchangeRates } from "../_apis/AllApis";
-import { PublicKey } from "@solana/web3.js";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setBalance } from "../_redux/slices/SolanaBalanceSlice";
 import SmallLoader from "./SmallLoader";
+import {
+  getBalance,
+  getExchangeRates,
+} from "../_utils/WalletCreatingFunctions";
+import { RootState } from "../_redux/store";
 
 function SearchIconButton({ search }: { search: string }) {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
+  const net = useSelector((state: RootState) => state.netSelector.net);
   return (
     <div>
       {isLoading ? (
@@ -26,7 +30,7 @@ function SearchIconButton({ search }: { search: string }) {
             setIsLoading(true);
             try {
               const rates = await getExchangeRates();
-              const data = await getBalance(search);
+              const data = await getBalance(search, net);
               dispatch(
                 setBalance({
                   balance: data,

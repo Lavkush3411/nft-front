@@ -1,8 +1,11 @@
 "use client";
 import React, { useEffect } from "react";
 import Button from "./Buttons";
-import { getBalance } from "../_apis/AllApis";
 import SmallLoader from "./SmallLoader";
+import { airDropSol, getBalance } from "../_utils/WalletCreatingFunctions";
+import { RootState } from "../_redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { openNetSwitcher } from "../_redux/slices/NetSwitcherSlice";
 
 function Wallet({
   walletNumber,
@@ -16,6 +19,10 @@ function Wallet({
   const [isKeyVisible, setIsKeyVisible] = React.useState(false);
   const [balance, setBalance] = React.useState(0);
   const [isLoading, setIsLoading] = React.useState(false);
+  const [successMessage, setSuccessMessage] = React.useState("");
+  const [errorMessage, setErrorMessage] = React.useState("");
+  const net = useSelector((state: RootState) => state.netSelector.net);
+  const dispatch = useDispatch();
   const toggleKeyVisibility = () => {
     setIsKeyVisible(!isKeyVisible);
   };
@@ -23,13 +30,33 @@ function Wallet({
   useEffect(() => {
     if (publicKey) {
       setIsLoading(true);
-      getBalance(publicKey).then((balance) => {
-        console.log(balance);
+      getBalance(publicKey, net).then((balance) => {
         setBalance(balance);
         setIsLoading(false);
       });
     }
-  }, [publicKey]);
+  }, [publicKey, net]);
+
+  async function handleAirdrop() {
+    setSuccessMessage("");
+    setErrorMessage("");
+    if (net === "DEVNET") {
+      try {
+        setIsLoading(true);
+        await airDropSol(publicKey, net);
+        setSuccessMessage("Airdropped 1 SOL Will be visible in a moment");
+        const balance = await getBalance(publicKey, net);
+        setBalance(balance);
+      } catch {
+        setErrorMessage("Airdrop failed");
+      } finally {
+        setBalance(balance);
+        setIsLoading(false);
+      }
+    } else {
+      dispatch(openNetSwitcher());
+    }
+  }
 
   return (
     <div>
@@ -105,17 +132,22 @@ function Wallet({
             {isLoading ? <SmallLoader /> : balance} SOL
           </p>
         </div>
-        <div className="my-6">
+        {successMessage && <p className="text-green-500">{successMessage}</p>}
+        {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+        <div className="my-6 flex items-center space-x-4">
           <Button
             onClick={async () => {
               setIsLoading(true);
-              const balance = await getBalance(publicKey);
+              setSuccessMessage("");
+              setErrorMessage("");
+              const balance = await getBalance(publicKey, net);
               setBalance(balance);
               setIsLoading(false);
             }}
           >
             Refresh Balance
           </Button>
+          <Button onClick={handleAirdrop}>Airdrop 1 SOL</Button>
         </div>
       </div>
     </div>

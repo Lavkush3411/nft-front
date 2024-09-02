@@ -7,12 +7,20 @@ function TransferWalletOptions() {
   const walletArray = useSelector((state: RootState) => state.wallets);
   if (walletArray.length <= 0) return null;
   return (
-    walletArray.length > 0 &&
-    walletArray.map((_, index) => (
-      <option key={index} className="text-gray-900" value="wallet1">
-        Wallet {index + 1}
-      </option>
-    ))
+    <>
+      <option>Select Wallet</option>
+
+      {walletArray.length > 0 &&
+        walletArray.map((keypair, index) => (
+          <option
+            key={index}
+            className="text-gray-900 cursor-pointer text-white hover:bg-gray-600"
+            value={keypair.privateKey}
+          >
+            Wallet {index + 1}
+          </option>
+        ))}
+    </>
   );
 }
 

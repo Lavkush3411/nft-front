@@ -34,7 +34,7 @@ function AddWallet({
   const walletArray = useSelector((state: RootState) => state.wallets);
   if (walletArray.length <= 0) return null;
   return (
-    <div className="flex my-8 justify-center items-center">
+    <div className="flex mt-16 my-8 justify-center items-center">
       <HeaderButton onClick={addNewSolanaWallet}>
         Add New Solana Wallet
       </HeaderButton>

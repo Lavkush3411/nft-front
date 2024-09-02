@@ -14,6 +14,7 @@ import { setMnemonic } from "../_redux/slices/MnemonicSlice";
 import { setRootSeed } from "../_redux/slices/RootSeedSlice";
 import { addWallet, initWallets } from "../_redux/slices/WalletsSlice";
 import AddWallet from "./AddWallet";
+import NetSelector from "./NetSelector";
 
 function Header() {
   const dispatch = useDispatch();
@@ -48,7 +49,7 @@ function Header() {
         <Link href="/">
           <h1 className="text-gray-100 text-2xl font-bold">Solana Explorer</h1>
         </Link>
-        <div className="space-x-4">
+        <div className="flex items-center space-x-4">
           {wallets.length === 0 ? (
             <Link href="/create-wallet">
               <HeaderButton onClick={createNewMnumonic}>
@@ -56,9 +57,12 @@ function Header() {
               </HeaderButton>
             </Link>
           ) : null}
-          <HeaderButton onClick={() => dispatch(openWalletConnector())}>
-            Connect Wallet
-          </HeaderButton>
+          <div className="flex items-center space-x-4">
+            <HeaderButton onClick={() => dispatch(openWalletConnector())}>
+              Connect Wallet
+            </HeaderButton>
+            <NetSelector />
+          </div>
         </div>
       </div>
     </div>
