@@ -41,9 +41,10 @@ function WalletCarousel() {
             style={{
               width: `${walletArray.length}px`,
               transform: `translateX(-${currentIndex * 350}px)`,
+              // marginLeft: `${currentIndex < 4 ? "-350px" : ""}`,
               marginLeft: `${
-                walletArray.length < 4 && walletArray.length > 0 ? "-350px" : ""
-              }`,
+                walletArray.length === 0 ? 0 : -350 + currentIndex * 29.3
+              }px`,
             }}
             initial={{ opacity: 0.5 }}
             animate={{ opacity: 1 }}
