@@ -17,9 +17,9 @@ function Wallet({
   };
   return (
     <div>
-      <div className="flex flex-col items-center p-6 border border-gray-700 rounded-lg shadow-md bg-gray-800 w-80 transition duration-300 ease-in-out hover:shadow-lg hover:border-gray-600 hover:overflow-hidden">
-        <h2 className="text-lg font-bold text-white text-center">
-          Wallet Number: {walletNumber}
+      <div className="flex flex-col width-350 items-center p-6 border border-gray-700 rounded-lg shadow-md bg-gray-800 w-80 transition duration-300 ease-in-out hover:shadow-lg hover:border-gray-600 hover:overflow-hidden">
+        <h2 className="text-lg font-bold text-white text-center my-4">
+          {walletNumber === 0 ? "Dummy Wallet" : `Wallet ${walletNumber}`}
         </h2>
         <div className="mt-2 text-wrap break-words text-left w-full">
           <p className="text-gray-400 ">Public Key:</p>
@@ -33,7 +33,7 @@ function Wallet({
             </p>
             <button
               onClick={toggleKeyVisibility}
-              className="ml-2 p-1 text-gray-400 hover:text-gray-200"
+              className="ml-2  p-1 text-gray-400 hover:text-gray-200"
               aria-label="Toggle Private Key Visibility"
             >
               {isKeyVisible ? (
@@ -77,15 +77,11 @@ function Wallet({
           </div>
         </div>
 
-        <div className="mt-2 text-left w-full">
+        <div className="my-2 text-left w-full">
           <p className="text-gray-400">Current Balance:</p>
           <p className="font-mono text-gray-200">0.00 SOL</p>
         </div>
-        <div className="mt-2 text-left w-full">
-          <p className="text-gray-400">NFTs Owned:</p>
-          <p className="font-mono text-gray-200">0</p>
-        </div>
-        <div className="mt-4">
+        <div className="my-8">
           <Button>Refresh Balance</Button>
         </div>
       </div>

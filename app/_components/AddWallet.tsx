@@ -1,12 +1,18 @@
 "use client";
 import React from "react";
-import { HeaderButton } from "./Buttons";
+import Button, { HeaderButton } from "./Buttons";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../_redux/store";
 import { derviveKeypairFromSeed } from "../_utils/WalletCreatingFunctions";
 import { addWallet } from "../_redux/slices/WalletsSlice";
 
-function AddWallet() {
+function AddWallet({
+  walletNumber,
+  setCurrentIndex,
+}: {
+  walletNumber: number;
+  setCurrentIndex: (index: number) => void;
+}) {
   const dispatch = useDispatch();
   function addNewSolanaWallet() {
     const rootSeed = localStorage.getItem("rootSeed");
@@ -22,14 +28,17 @@ function AddWallet() {
     dispatch(addWallet({ privateKey, publicKey }));
     wallets.push({ privateKey, publicKey });
     localStorage.setItem("wallets", JSON.stringify(wallets));
+    setCurrentIndex(walletNumber);
   }
 
   const walletArray = useSelector((state: RootState) => state.wallets);
   if (walletArray.length <= 0) return null;
   return (
-    <HeaderButton onClick={addNewSolanaWallet}>
-      Add New Solana Wallet
-    </HeaderButton>
+    <div className="flex my-8 justify-center items-center">
+      <HeaderButton onClick={addNewSolanaWallet}>
+        Add New Solana Wallet
+      </HeaderButton>
+    </div>
   );
 }
 

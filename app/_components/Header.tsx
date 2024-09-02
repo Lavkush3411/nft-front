@@ -55,9 +55,7 @@ function Header() {
                 Create Solana Wallet
               </HeaderButton>
             </Link>
-          ) : (
-            <AddWallet />
-          )}
+          ) : null}
           <HeaderButton onClick={() => dispatch(openWalletConnector())}>
             Connect Wallet
           </HeaderButton>
