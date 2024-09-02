@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const NetSelectorSlice = createSlice({
   name: "NetSelector",
   initialState: {
-    net: "DEVNET",
+    net: "MAINNET",
   },
   reducers: {
     setNet: (state, action) => {

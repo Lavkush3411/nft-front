@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.7",
+    "@solana/wallet-adapter-react": "^0.15.35",
     "@solana/web3.js": "^1.95.3",
     "bip39": "^3.1.0",
     "bs58": "^6.0.0",
