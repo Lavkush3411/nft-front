@@ -13,7 +13,7 @@ export default function Home() {
   // const receiverPublic = "";
   // const senderPrivate = "";
   // const amount=1;
-   
+
   return (
     <main className="container p-20 gap-20 scrollbar-hide">
       {/* <SendButton receiverPublic={receiverPublic} senderPrivate={senderPrivate} amount={amount} /> */}

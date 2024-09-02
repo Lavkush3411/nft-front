@@ -1,12 +1,29 @@
 import React from "react";
+import { getBalance, getExchangeRates } from "../_apis/AllApis";
+import { PublicKey } from "@solana/web3.js";
+import { useDispatch } from "react-redux";
+import { setBalance } from "../_redux/slices/SolanaBalanceSlice";
 
-function SearchIconButton() {
+function SearchIconButton({ search }: { search: string }) {
+  const dispatch = useDispatch();
   return (
     <div>
       <button
         type="button"
         className="p-2 text-gray-400 hover:text-gray-500"
         aria-label="Search"
+        onClick={async () => {
+          const rates = await getExchangeRates();
+          const data = await getBalance(search);
+
+          dispatch(
+            setBalance({
+              balance: data,
+              usd: Math.round(rates[0] * data * 100) / 100,
+              inr: Math.round(rates[1] * data * 100) / 100,
+            })
+          );
+        }}
       >
         <svg
           className="w-5 h-5 cursor-pointer"
