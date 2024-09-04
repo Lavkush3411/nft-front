@@ -30,19 +30,6 @@ function Header() {
     }
   }
 
-  useEffect(() => {
-    const rootSeed = localStorage.getItem("rootSeed");
-    if (rootSeed) {
-      dispatch(setRootSeed(rootSeed));
-    }
-    const wallets = JSON.parse(localStorage.getItem("wallets") || "[]");
-
-    if (wallets.length > 0) {
-      console.log(wallets);
-      dispatch(initWallets(wallets));
-    }
-  }, [dispatch]);
-
   return (
     <div className="bg-transparent p-4">
       <div className="container mx-auto flex justify-between items-center">

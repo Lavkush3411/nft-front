@@ -1,0 +1,9 @@
+{
+  "pomodoro.autoStart": true,
+  "pomodoro.texts": {
+    
+    "notification": "Pomodoro %started{%work{Work}%break{Break}%longBreak{Long Break}}%paused{Paused}%reset{Reset}",
+    "statusbar": "🍅%paused{ /* }%work{ Work  %task/%set %minute:%second}%break{ Break  %task/%set %minute:%second}%longBreak{ Long Break  %task/%set %minute:%second}%paused{ */}",
+    "tooltip": "Pomodoro %started{Pause}%paused{Resume}%reset{Start}"
+  }
+}

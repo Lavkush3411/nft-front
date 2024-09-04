@@ -1,16 +1,34 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../_redux/store";
 import Wallet from "./Wallet";
 import AddWallet from "./AddWallet";
+import { setRootSeed } from "../_redux/slices/RootSeedSlice";
+import { initWallets } from "../_redux/slices/WalletsSlice";
+import Loader from "./Loader";
 
 function WalletCarousel() {
   // const walletArray = React.Children.toArray(children);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
   const walletArray = useSelector((state: RootState) => state.wallets);
+
+  useEffect(() => {
+    const rootSeed = localStorage.getItem("rootSeed");
+    if (rootSeed) {
+      dispatch(setRootSeed(rootSeed));
+    }
+    const wallets = JSON.parse(localStorage.getItem("wallets") || "[]");
+    dispatch(initWallets(wallets));
+    setLoading(false);
+  }, [dispatch]);
+
+  if (loading) return <Loader />;
+
   const handlePrev = () => {
     if (currentIndex > 0) {
       setCurrentIndex((prevIndex) => prevIndex - 1);
